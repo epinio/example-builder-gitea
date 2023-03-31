@@ -1,0 +1,3 @@
+[submodule "stacks/bionic-full-stack"]
+	path = stacks/bionic-full-stack
+	url = git@github.com:epinio/bionic-full-stack.git

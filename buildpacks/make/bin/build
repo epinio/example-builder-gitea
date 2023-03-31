@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+echo "---> Make buildpack"
+
+# INPUT ARGUMENTS
+platform_dir=$2
+env_dir=${platform_dir}/env
+layers_dir=$1
+plan_path=$3
+
+
+TAGS="bindata" make build
+
+cat >> "${layers_dir}/launch.toml" <<EOL
+[[processes]]
+type = "web"
+command = "./gitea"
+default = true
+EOL
+
+# copy the default configuration changing the default port
+cp custom/conf/app.example.ini custom/conf/app.ini
+sed -i "s/;HTTP_PORT = 3000/HTTP_PORT = 8080/" custom/conf/app.ini
+
+echo "---> Done"
