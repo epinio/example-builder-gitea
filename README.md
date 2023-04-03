@@ -13,7 +13,7 @@
 Build the `bionic-full-stack`
 
 ```
-./stacks/bionic-full-stack/scripts/create.s
+./stacks/bionic-full-stack/scripts/create.sh
 ```
 
 This will create two OCI images in the `stacks/bionic-full-stack/build` folder:
@@ -38,17 +38,15 @@ docker push ghcr.io/enrichman/bionic-full-stack-run:0.1.0
 
 # builder
 
+Create the builder image
+
 ```
-pack builder create ghcr.io/enrichman/gitea-builder:0.0.4 --config ./builders/gitea-builder/builder.toml
+pack builder create ghcr.io/enrichman/gitea-builder:0.0.4 \
+    --config ./builders/gitea-builder/builder.toml
 ```
+
+and push it
 
 ```
 docker push ghcr.io/enrichman/gitea-builder:0.0.4
-```
-
-
-## deploy
-
-```
-epinio app push -p . --name gitea --builder-image ghcr.io/enrichman/gitea-builder:0.0.4
 ```
